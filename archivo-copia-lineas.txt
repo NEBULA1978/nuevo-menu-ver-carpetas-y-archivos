@@ -1,0 +1,11 @@
+if [ "$1" == "test" ]; then  #@1
+  exit 0  #@2
+fi  #@3
+MANAGER=(test cd ls pwd)  #@4
+RANDOM=$$  #@5
+for target in *; do  #@6
+  nbline=$(wc -l $target)  #@7
+  nbline=${nbline##}  #@8
+  nbline=$(echo $nbline | cut -d " " -f1)  #@9
+  if [ $(($nbline)) -lt 39 ]; then  #@10
+    continue  #@11
