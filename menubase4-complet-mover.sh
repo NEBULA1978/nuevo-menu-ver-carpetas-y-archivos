@@ -52,8 +52,23 @@ function show_content() {
             echo "La carpeta $folder no existe en $current_dir."
           fi
         elif [ "$next_choice" == "M" ]; then
+
           read -p "Introduce el nombre del archivo a mover: " file
+          echo "El contenido de la carpeta $current_dir es:"
+          ls -1 "$current_dir"
+          
+          options=("Desktop" "Documents" "Downloads" "Music" "Pictures" "Videos")
+          select folder in "${options[@]}"; do
+            if [ -d "$current_dir/$folder" ]; then
+              folder="$current_dir/$folder"
+              break
+            else
+              echo "Opción inválida, elige una de las siguientes opciones:"
+            fi
+          done
+
           read -p "Introduce el nombre de la carpeta destino: " folder
+
           if [ -f "$current_dir/$file" ] && [ -d "$current_dir/$folder" ]; then
 mv "$current_dir/$file" "$current_dir/$folder/$file"
 echo "El archivo $file ha sido movido a la carpeta $folder."
@@ -106,3 +121,27 @@ show_content "/"
 else
 echo "Opción inválida, elige una de las siguientes: (H/S)."
 fi
+
+
+# RESULTADO POR CONSOLA
+
+# ./menubase4-complet-mover.sh
+# ¿Quieres ver el contenido de la carpeta home o del sistema? (H/S) h
+# ¿Quieres ver la ruta absoluta de la carpeta actual? (S/N) s
+# El contenido de la carpeta /home/next/Música/ver-varpetas-bash/nuevo-menu-ver-carpetas-y-archivos es:
+# archivo-copia-lineas.txt
+# menubase2.sh
+# menubase3.sh
+# menubase4-complet-mover.sh
+# menubase4-completo.sh
+# menubase4-completo-while-case-copiar-lineas-archivo2-pyhon3.py
+# menubase4-completo-while-case-copiar-lineas-archivo2.sh
+# menubase4-completo-while-case-copiar-lineas-archivo.sh
+# menubase4-completo-while-case.sh
+# menubase.sh
+# prueba-move-archivos
+# README.md
+# ¿Quieres entrar en una carpeta, leer un archivo, mover un archivo, salir o retroceder? (C/L/M/S/R) m
+# Introduce el nombre del archivo a mover: menubase.sh
+# Introduce el nombre de la carpeta destino: /home/next/Música/ver-varpetas-bash/nuevo-menu-ver-carpetas-y-archivos
+# La carpeta /home/next/Música/ver-varpetas-bash/nuevo-menu-ver-carpetas-y-archivos no existe en /home/next/Música/ver-varpetas-bash/nuevo-menu-ver-carpetas-y-archivos.
